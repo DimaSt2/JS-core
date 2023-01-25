@@ -15,6 +15,9 @@ function safeSum(a, b, c) {
     let arr = [a, b, c];   // возможно есть проще вариант, больше имел дело с массивами) 
     for(let elem of arr){
           elem = +elem;   // или как вариант, вместо знака +,  Number(elem)
+          if(isNaN(elem)){
+            continue;       //если строка не преобразуется в число, ее не учитывать
+          }
           sum = sum + elem;     
         }
     return sum;
