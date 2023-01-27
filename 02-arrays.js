@@ -5,8 +5,20 @@ const arraysTask = {
    * нужно посчитать и вернуть сумму всех чисел
    */
     totalSum: function (array) {
-
+            
     },
+
+    function totalSum(array) {
+        let sum = 0;
+        for(let elem of array){
+             if(isNaN(elem) || typeof elem === 'string'){
+                 continue;       
+               }
+           sum += elem;     
+             }
+         return sum;
+         }
+
 
     /**
      * на вход ф-ция получает 2 массива
@@ -17,28 +29,93 @@ const arraysTask = {
     combine: function (array1, array2) {
 
     },
+
+
+    // с этой функцией чувство что изобретаю велосипед, должен быть какой-то метод, 
+    //делающий это короче 
+    function combine(array1, array2) {   
+        let arr = [];      //массив в который поместим результат
+        let arrCut = [];   //отрезок, если длины аргументов не равны, для добавления в конце
+      
+        let diff = array1.length - array2.length;   //разность между длинами массивов
+      
+        let commonLeigth = (array1.length + array2.length - Math.abs(diff)) / 2; 
+                      //общая длина обоих массивов, которая содержит элементы
+          
+          for(let i = 0; i < commonLeigth; i++){
+              arr[i] = [array1[i], array2[i]]; 
+              }                                 //заполняем пустой массив в виде двумерного
+              
+          arr = [].concat(...arr);             //переводим в одномерный
+          
+          if(diff == 0){
+            return(arr);
+          }                         //если массивы были равны, возвращаем результат
+    
+          if(diff > 0){        //если неравны, вырезаем остаток для добавления в конец нашего массива 
+            arrCut = array1.slice(- diff);
+          } else {
+            arrCut = array2.slice(diff);
+          }
+           
+           arr = arr.concat(...arrCut); //присоединяем отрезок 
+          return arr;
+    }
+    
+
     //вернуть массив, состоящий из идущих подряд чисел, начиная со start, и до end включительно
     //range(0, 3) => [0, 1, 2, 3]
     range(start, end) {
+        let arr = [];
+        let diff = end - start;
 
+        for(let i = 0; i <= diff; i++){
+        arr[i] = start;
+        start++;
+     }  
+        return arr;
     },
+
+
     //ф-ция должна вернуть последние n элементов массива
     //если n > array.length то вернуть копию массива
     lastN(array, n) {
-
+        let arr = [];
+            if(n > array.length){
+            return arr = [...array];
+            }
+        return arr = array.slice(-n);
+    }
     },
-    //ф-ция должна вернуть новый массив, в котором будут все элементы исоходного массива, но без дубликатов
+    //ф-ция должна вернуть новый массив, в котором будут все элементы исходного массива, но без дубликатов
     //unique([1, 2, 3, 3]) => [1, 2, 3]
     unique(array) {
-
+        let arr = [];
+        let set = new Set(array);
+        
+        for(let elem of set){
+             arr.push(elem);
+            }
+        return arr;
     },
     /**
      * разбить исходный массив на несколько подмассивов длиной chunkSize
      * chunk([1, 2, 3, 4, 5], 3) => [[1, 2, 3], [4, 5]]
      */
-    chunk: function (arr, chunkSize) {
-
+    chunk: function chunk(arr, chunkSize) {
+        array = [];
+        cutCount = Math.floor(arr.length/chunkSize); //кол-во целых отрезков
+    
+       for(let i = 0; i < cutCount; i++){
+          array[i] = arr.splice(0, chunkSize);
+       }
+       
+         if(arr.length > 0){       //если остался отрезок, добавляем в конец массива
+           array.push(arr);
+         } 
+        return array;
     },
+
     //вернуть новый массив из элементов, для которых ф-ция cb вернёт true
     //аналог родного array.filter
     filter(array, cb) {
