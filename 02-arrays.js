@@ -119,12 +119,29 @@ const arraysTask = {
     //вернуть новый массив из элементов, для которых ф-ция cb вернёт true
     //аналог родного array.filter
     filter(array, cb) {
-
+      const arr = [];
+      for(let elem of array){
+        if(cb(elem)){
+          arr.push(elem);
+        }
+      }
+      return arr;
     },
+
+
     //эта ф-ция должна работать как array.forEach, но если cb возвращает false то обход цикла должен прикратиться
-    breakableForEach(array, cb) {
+    function breakableForEach(array, cb) {
+      const arr = [];
+      for(let elem of array){
+          if(cb(elem) == false){
+          return arr;            
+        }
+        arr.push(elem);
+      }
+     return arr; 
+  }
 
-    },
+
     //ф-ция должна вернуть true если в обеих массивах одинаковые элементы, иначе false
     //areArraysEqual([1, 2, 3], [2, 3, 1]) => true
     //areArraysEqual([1, 2, 2], [1, 2]) => false
@@ -132,9 +149,27 @@ const arraysTask = {
 
     },
 
+    function areArraysEqual(arr1, arr2) {
+      if(arr1.length !== arr2.length){
+        return false;
+      }
+    
+      let array2 = [...arr2]; //копия arr2, чтобы не изменить исходный массив
+    
+      for(let elem of arr1){
+        if(array2.includes(elem)){
+           array2.splice(array2.indexOf(elem), 1);
+           continue;
+           } else {
+             return false;
+           }
+        }
+      return true;
+  }
+
     /**
      * На вход подается массив чисел, 2 числа min/max и необязательный булевый параметр strict, который по-умолчанию будет true
-     * может быть быть так что min > max, те сначала надо убедиться и обеспечить min>=max
+     * может быть быть так что min > max, те сначала надо убедиться и обеспечить min<=max
      * параметр strict надо помнимать так: если true то сравнивать числа через ><, иначе сравнивать через >=, <=
      * ф-ция должна вернуть новый массив в котором все элементы будут находиться между min и max
      */
@@ -142,3 +177,21 @@ const arraysTask = {
 
     }
 };
+
+function selectIntervalFromArray(array, min, max, strict = true) {
+  if(min > max){
+    return;
+  }    
+
+  const arr = [];
+  
+    for(let elem of array){
+       if(elem > min && elem < max){
+         arr.push(elem);
+       }
+        else if(strict == false && elem >= min && elem <= max){
+         arr.push(elem);
+       }
+    }
+    return arr;
+}
