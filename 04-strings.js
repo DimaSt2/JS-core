@@ -123,16 +123,35 @@ const stringTasks = {
     reverseNumber(1020) => 201
     reverseNumber(-345) => -543
      */
-    reverseNumber: function (n) {
- 
+    function reverseNumber (n) {
+      str = String(n);
+      if(str[0] == '-'){
+         str = '-' + str.split('').slice(1).reverse().join('');
+      } else {
+        str = str.split('').reverse().join('');
+      }
+      return str;
     },
     /**
      * нужно посчитать кол-во каждого символа в строке
      * считать 'a' и 'A' разными символами
      * вывести результат в любом удобном виде
      */
-    charCount: function (str) {
- 
+    : function charCount (str) {
+         const strCopy = str.split('');
+         const obj = {};
+         
+            for(i = 0; i < strCopy.length; i++){
+                  let count = 0;
+                  for(let elem of str){
+                     
+                     if(strCopy[i] == elem) {
+                     count++;
+                     } 
+                     obj[strCopy[i]] = count;
+                  }
+            }      
+         console.log(obj);
     },
  
     /**
@@ -144,8 +163,26 @@ const stringTasks = {
      * areAnagrams('Eleven plus two', 'Twelve plus one'); => true;
      * areAnagrams('O, Draconian devil', 'Leonardo da Vinci') => true;
      */
-    areAnagrams: function (str1, str2) {
- 
+    : function areAnagrams (str1, str2) {
+         str1 = str1.toLowerCase().split('').sort();
+         str2 = str2.toLowerCase().split('').sort();
+  
+         let str1Sort = [],
+             str2Sort = []; 
+     
+      for(let elem of str1){
+         if(elem >= 'a' && elem <= 'z'){
+          str1Sort.push(elem);
+         }
+      }
+  
+      for(let elem of str2){
+         if(elem >= 'a' && elem <= 'z'){
+          str2Sort.push(elem);
+         }
+      }
+      
+      return str1Sort.join('') === str2Sort.join('');
     },
     /**
      * 
@@ -156,7 +193,7 @@ const stringTasks = {
      * isPalindrome('abc') => false;
      * isPalindrome('aabbaa') => true;
      */
-    isPalindrome: function (str) {
- 
-    },
+    : function isPalindrome (str) {
+         return str === str.split('').reverse().join('');
+      },
  };
